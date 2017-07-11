@@ -21,6 +21,14 @@ exports.execute = function (iterator, targetCount, probability) {
     exec(dailySeq, iterator);
 };
 
+exports.getIntervalGenerator = function * (targetCount, probability) {
+    let lambdaInvSeq = genLambdaInvSeq(targetCount, probability);
+    for (;;) {
+        const lambdaInv = lambdaInvSeq[new Date().getHours()];
+        yield Math.round(expRand(lambdaInv))
+    }
+};
+
 /**
  *
  * @param {number} lambdaInv
